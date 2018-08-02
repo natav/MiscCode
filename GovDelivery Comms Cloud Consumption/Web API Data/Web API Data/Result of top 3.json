@@ -1,0 +1,41 @@
+﻿[
+  {
+    "link_url": "http://www.hirebridge.com/v3/jobs/list.aspx?cid=7723",
+    "subject": "Company Wide Office Newsletter | 03/19/18- 03/25/18",
+    "sent_at": "2018-03-19T16:03:05.000Z",
+    "sender_email": "Mariah.Leiferman@granicus.com",
+    "unique_click_count": "9.0",
+    "total_click_count": "9.0",
+    "_links": {
+      "self": {
+        "href": "/api/v2/accounts/26363/reports/bulletins/31630045/links/104063370"
+      }
+    }
+  },
+  {
+    "link_url": "https://docs.google.com/forms/d/e/1FAIpQLSdsIuKaVLaWQdULsJOJ2NMsXe7pSH4TC8G08GnhB8tZdX0Lcw/viewform",
+    "subject": "Company Wide Office Newsletter | 03/19/18- 03/25/18",
+    "sent_at": "2018-03-19T16:03:05.000Z",
+    "sender_email": "Mariah.Leiferman@granicus.com",
+    "unique_click_count": "4.0",
+    "total_click_count": "4.0",
+    "_links": {
+      "self": {
+        "href": "/api/v2/accounts/26363/reports/bulletins/31630045/links/104063364"
+      }
+    }
+  },
+  {
+    "link_url": "https://insights.govdelivery.com/@api/deki/files/2473/Granicus_Employee_Referral_Program_Form.pdf?revision=1",
+    "subject": "Company Wide Office Newsletter | 03/12/18 - 03/18/18",
+    "sent_at": "2018-03-12T15:37:26.000Z",
+    "sender_email": "Diana.Kim@granicus.com",
+    "unique_click_count": "4.0",
+    "total_click_count": "4.0",
+    "_links": {
+      "self": {
+        "href": "/api/v2/accounts/26363/reports/bulletins/31550985/links/103596405"
+      }
+    }
+  }
+]
