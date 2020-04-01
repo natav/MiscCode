@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/MeetingSkillAPI",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:65209/",
       "sslPort": 0
@@ -17,7 +21,7 @@
       }
     },
     "MeetingSkillAPI": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
