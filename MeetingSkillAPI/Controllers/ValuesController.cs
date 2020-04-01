@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MeetingSkillAPI.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("api/values")]
     public class ValuesController : Controller
     {
         // GET api/values
@@ -20,7 +21,7 @@ namespace MeetingSkillAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return $"value = {id}";
         }
 
         // POST api/values
