@@ -8,6 +8,10 @@ using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Configuration;
+using Microsoft.IdentityModel.Protocols;
+using MeetingSkillAPI.DataContracts;
+using MeetingSkillAPI.WebAPILib.Common;
 
 namespace MeetingSkillAPI.Controllers
 {
@@ -16,6 +20,9 @@ namespace MeetingSkillAPI.Controllers
     //[Route("api/[controller]")]
     public class AlexaController : Controller
     {
+
+        private WebAPILib.WebAPILib _webAPILib;
+
         /// <summary>
         /// This is the entry point for the Alexa skill
         /// </summary>
@@ -29,7 +36,7 @@ namespace MeetingSkillAPI.Controllers
             // return a welcome message
             if (requestType == typeof(LaunchRequest))
             {
-                return ResponseBuilder.Ask("Welcome to upcoming meetings, I can find meetings in Ann Arbor and New York. In which city are you looking for the next upcoming meeting?", null);
+                return ResponseBuilder.Ask("Welcome to upcoming meetings, I can find meetings in Ann Arbor and Milwaukee. In which city are you looking for the next upcoming meeting?", null);
             }
 
             // return information from an intent
@@ -47,12 +54,19 @@ namespace MeetingSkillAPI.Controllers
                     {
                         return ResponseBuilder.Ask("In which city?", null);
                     }
-                    else if (intentRequest.Intent.Slots["City"].Value != "New York" && intentRequest.Intent.Slots["City"].Value != "Ann Arbor")
+                    else if (intentRequest.Intent.Slots["City"].Value != "Milwaukee" && intentRequest.Intent.Slots["City"].Value != "Ann Arbor")
                     {
-                        return ResponseBuilder.Ask($"Sorry, but I cannot get meetings for the {city}. I can only find meetings in Ann Arbor and New York. In which of those two cities do you want to get upcoming meetings for?", null);
+                        return ResponseBuilder.Ask($"Sorry, but I cannot get meetings for the {city}. I can only find meetings in Ann Arbor and Milwaukee. In which of those two cities do you want to get upcoming meetings for?", null);
                     }
 
-                        return ResponseBuilder.Tell($"The next upcoming meeting for the {city} is today. This is a test skill so far.");
+                    // call webAPI and return string result
+                    _webAPILib = new WebAPILib.WebAPILib {ClientName = city};
+
+                    Meetings results = _webAPILib.GetEventsStartingFromDate(DateTime.Now);
+
+                    string response = Common.MeetingsListingResultString(results);
+
+                    return ResponseBuilder.Tell($"{response}");
                 }
             }
 
