@@ -1,39 +1,24 @@
-﻿using MeetingSkillAPI.DataContracts;
+﻿using MeetingSkillAPI.WebAPILib.DataContracts;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace MeetingSkillAPI.WebAPILib
 {
-    public class WebAPILib
+    public class WebAPILib : IWebAPILib
     {
         public string BaseURL { get; set; }
         public string ClientName { get; set; }
 
         public WebAPILib()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            
-            var clientName = "jason";
-
-            switch (ClientName) 
-            {
-                case "Milwaukee":
-                    clientName = "milwaukee";
-                    break;
-                case "Ann Arbor":
-                    clientName = "a2gov";
-                    break;
-            }
-            BaseURL = $"https://webapi.legistar.com/v1/{clientName}/events";
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
-        private string GetURL(DateTime eventStartDate, string bodyId, int numberOfRecordsReturned)
+        public string GetURL(DateTime eventStartDate, string bodyId, int numberOfRecordsReturned)
         {
             // sample: https://webapi.legistar.com/v1/jason/Events?$filter=EventDate+ge+datetime%272017-09-01%27&$top=2
             // sample: https://webapi.legistar.com/v1/jason/Events?$filter=EventDate+ge+datetime%272019-03-08%27+and+EventBodyId+eq+139&$top=2
@@ -42,7 +27,7 @@ namespace MeetingSkillAPI.WebAPILib
             // sample in dev: https://webapi.dev.legistar.com/v1/a2gov/Events?$filter=EventDate+ge+datetime%272017-09-01%27&$top=10
             // sample in dev: https://webapi.dev.legistar.com/v1/a2gov/Events?$filter=EventDate+ge+datetime%272017-09-01%27&$top=10&$orderby=EventBodyId
 
-            string formattedDate = eventStartDate.ToString("yyyy-mm-dd");
+            string formattedDate = eventStartDate.ToString("yyyy-MM-dd");
 
             if (bodyId == "")
             {
@@ -54,8 +39,9 @@ namespace MeetingSkillAPI.WebAPILib
             }
         }
 
-        public Meetings GetEventsStartingFromDate(DateTime eventStartDate, string bodyId = "", int numberOfRecordsReturned = 2)
+        public string GetEventsStartingFromDate(DateTime eventStartDate, string city, string bodyId = "", int numberOfRecordsReturned = 2)
         {
+
             using (HttpClient client = new HttpClient())
             {
                 string Url = GetURL(eventStartDate, bodyId, numberOfRecordsReturned);
@@ -70,15 +56,21 @@ namespace MeetingSkillAPI.WebAPILib
                 if (response.IsSuccessStatusCode)
                 {
                     var tmp = response.Content.ReadAsStringAsync().Result;
-                    return JsonConvert.DeserializeObject<Meetings>(tmp);
+                    List<Meeting> meetingList  =  JsonConvert.DeserializeObject<List<Meeting>>(tmp);
+                    return Common.MeetingsListingResultString(meetingList, city);
                 }
                 else
                 {
                     var message = response.Content.ReadAsStringAsync();
                     string outMessage = string.Format("{0} ({1}):{2}{3}", (int)response.StatusCode, response.ReasonPhrase, Environment.NewLine, message.Result);
-                    return Common.Common.BuildFailedString(outMessage);
+                    return outMessage;
                 }
             }
+        }
+        public string Ping()
+        {
+            return $"BaseURL = {BaseURL}";
+
         }
     }
 }

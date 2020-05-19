@@ -1,4 +1,4 @@
-﻿using MeetingSkillAPI.DataContracts;
+﻿using MeetingSkillAPI.WebAPILib.DataContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,13 @@ namespace MeetingSkillAPI.WebAPILib
 {
     public interface IWebAPILib
     {
-        string GetURL(string table, string method, string id = "", string body = "", string searchString = "", string field = "", bool addJsonDecorator = true);
+        string BaseURL { get; set; }
+        string ClientName { get; set; }
 
-        Meetings GetEventsStartingFromDate(string hostName, string eventStartDate, string bodyId, int numberOfRecordsReturned = 2);
+        string GetURL(DateTime eventStartDate, string bodyId, int numberOfRecordsReturned);
+
+        string GetEventsStartingFromDate(DateTime eventStartDate, string city, string bodyId = "", int numberOfRecordsReturned = 2);
+
+        string Ping();
     }
 }

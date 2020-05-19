@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MeetingSkillAPI.DataContracts
+namespace MeetingSkillAPI.WebAPILib.DataContracts
 {
     public class Meeting
 
@@ -30,5 +30,6 @@ namespace MeetingSkillAPI.DataContracts
         public object EventVideoPath { get; set; }
         public string EventInSiteURL { get; set; }
         public object[] EventItems { get; set; }
+        public object Length { get; internal set; }
     }
 }

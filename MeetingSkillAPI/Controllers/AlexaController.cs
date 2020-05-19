@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Alexa.NET;
+﻿using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
-using Microsoft.AspNetCore.Http;
+using MeetingSkillAPI.WebAPILib;
+using MeetingSkillAPI.WebAPILib.DataContracts;
 using Microsoft.AspNetCore.Mvc;
-using System.Configuration;
-using Microsoft.IdentityModel.Protocols;
-using MeetingSkillAPI.DataContracts;
-using MeetingSkillAPI.WebAPILib.Common;
+using System;
+using System.Collections.Generic;
 
 namespace MeetingSkillAPI.Controllers
 {
@@ -21,7 +16,7 @@ namespace MeetingSkillAPI.Controllers
     public class AlexaController : Controller
     {
 
-        private WebAPILib.WebAPILib _webAPILib;
+        //private WebAPILib.WebAPILib _webAPILib;
 
         /// <summary>
         /// This is the entry point for the Alexa skill
@@ -45,26 +40,32 @@ namespace MeetingSkillAPI.Controllers
                 // do some intent-based stuff
                 var intentRequest = input.Request as IntentRequest;
 
-                // check the name to determine what you should do
+                // check the intent name
                 if (intentRequest.Intent.Name.Equals("UpcomingMeetingIntent"))
                 {
                     // get the slots
-                    var city = intentRequest.Intent.Slots["City"].Value;
+                    var city = intentRequest.Intent.Slots["City"].Value.ToLower();
                     if (city == null)
                     {
                         return ResponseBuilder.Ask("In which city?", null);
                     }
-                    else if (intentRequest.Intent.Slots["City"].Value != "Milwaukee" && intentRequest.Intent.Slots["City"].Value != "Ann Arbor")
+                    else if (city.ToLower() != "milwaukee" & city.ToLower() != "ann arbor")
                     {
                         return ResponseBuilder.Ask($"Sorry, but I cannot get meetings for the {city}. I can only find meetings in Ann Arbor and Milwaukee. In which of those two cities do you want to get upcoming meetings for?", null);
                     }
 
-                    // call webAPI and return string result
-                    _webAPILib = new WebAPILib.WebAPILib {ClientName = city};
+                    var govName = Common.GetGovName(city);
+                    var baseUrl = Common.GetBaseURL(govName);
 
-                    Meetings results = _webAPILib.GetEventsStartingFromDate(DateTime.Now);
+                    WebAPILib.WebAPILib _webAPILib = new WebAPILib.WebAPILib { ClientName = govName, BaseURL = baseUrl };
 
-                    string response = Common.MeetingsListingResultString(results);
+                    // test
+                    //return ResponseBuilder.Tell(_webAPILib.Ping());
+
+                    //List<Meeting> results = _webAPILib.GetEventsStartingFromDate(DateTime.Now);
+
+                    //string response = Common.MeetingsListingResultString(results, city);
+                    string response = _webAPILib.GetEventsStartingFromDate(DateTime.Now, city);
 
                     return ResponseBuilder.Tell($"{response}");
                 }
