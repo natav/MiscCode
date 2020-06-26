@@ -16,11 +16,12 @@ namespace Aspose.PDF
 
                 Aspose.Pdf.License license = new Aspose.Pdf.License();
                 // Set license
-                license.SetLicense("AsposePdf.lic");
+                license.SetLicense("Aspose.Pdf.lic");
+
                 Console.WriteLine("License set successfully.");
 
                 // Load source PDF file
-                Document doc = new Document("D:\\ToAspose\\Aspose_input.pdf");
+                Document doc = new Document("D:\\Aspose\\Input\\Aspose_input.pdf");
 
                     // Instantiate HTML Save options object
                     HtmlSaveOptions newOptions = new HtmlSaveOptions();
@@ -36,7 +37,7 @@ namespace Aspose.PDF
                     newOptions.FontSavingMode = HtmlSaveOptions.FontSavingModes.SaveInAllFormats;
 
                     // Output file path 
-                    string outHtmlFile = "D:\\ToAspose\\Aspose_licensed_output_with_RemoveEmptyAreasOnTopAndBottom_5.6.20.html";
+                    string outHtmlFile = "D:\\Aspose\\Output\\Aspose_licensed_output_with_RemoveEmptyAreasOnTopAndBottom_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".html";
                     
                     doc.Save(outHtmlFile, newOptions);
 
