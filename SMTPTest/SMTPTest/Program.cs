@@ -15,9 +15,9 @@ namespace SMTPTest
             try
             {
                 MailMessage message = new MailMessage();
-                message.From = new MailAddress("ols-noreply@legistar.com"); // ("natalya.varshavskaya@granicus.com");
+                message.From = new MailAddress("natalya.varshavskaya@granicus.com"); // ("natalya.varshavskaya@granicus.com");
 
-                message.To.Add("natalyav@granicus.com"); // ("natalya.varshavskaya@granicus.com");
+                message.To.Add("natalya.varshavskaya@granicus.com"); // ("natalya.varshavskaya@granicus.com");
 
                 message.Subject = "my subject - Test";
                 message.Body = "mail body";
