@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireConsoleApp", "HangfireConsoleApp.csproj", "{44997C25-AC1B-4533-BDF1-C451FA1245CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangfireWindowsService", "..\HangfireWindowsService\HangfireWindowsService.csproj", "{384BFCD3-A123-49E4-BD8D-3F58F460CBD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44997C25-AC1B-4533-BDF1-C451FA1245CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44997C25-AC1B-4533-BDF1-C451FA1245CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44997C25-AC1B-4533-BDF1-C451FA1245CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44997C25-AC1B-4533-BDF1-C451FA1245CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384BFCD3-A123-49E4-BD8D-3F58F460CBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384BFCD3-A123-49E4-BD8D-3F58F460CBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384BFCD3-A123-49E4-BD8D-3F58F460CBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384BFCD3-A123-49E4-BD8D-3F58F460CBD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A77796D5-89D6-488A-91CE-494C0FD5214E}
+	EndGlobalSection
+EndGlobal
